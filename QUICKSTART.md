@@ -86,6 +86,17 @@ Press `/` or `Enter` and try these:
 - `/speed 2.0` - Move twice as fast (testing)
 - `/heat 0` - Reset heat to zero
 
+## Testing with AI Bots
+
+You can spawn AI bots to practice against:
+
+1. Press `/` or `Enter` to open the console
+2. Type `/spawnbot` to spawn one bot
+3. Or type `/spawnbot 5` to spawn 5 bots
+4. Bots will automatically patrol, chase, and attack
+
+Bots have different skill levels and will use jetpacks, weapons, and missiles just like players!
+
 ## Multiplayer
 
 ### Hosting a Game

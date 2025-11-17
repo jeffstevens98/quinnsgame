@@ -41,6 +41,43 @@ Celestial Knights combines fast-paced movement with strategic heat management. P
 ✅ Configuration system for easy tuning
 ✅ Chat console for debug commands
 
+### Phase 5 - Visual Effects (Implemented)
+✅ Explosion effects with particles and lighting
+✅ Muzzle flash effects for weapons
+✅ Impact effects for bullet hits
+✅ Floating damage numbers
+✅ Hit markers on successful hits
+✅ Kill feed UI
+
+### Phase 6 - Sound System (Implemented)
+✅ Complete sound manager framework
+✅ 3D positional audio support
+✅ Sound hooks for all weapons and effects
+✅ Volume controls (master, SFX, music)
+
+### Phase 7 - AI Bots (Implemented)
+✅ Fully functional AI bot system
+✅ Multiple AI states (Patrol, Chase, Attack, Evade)
+✅ Skill-based difficulty levels
+✅ Bot spawning via chat command
+
+### Phase 8 - Game Modes (Implemented)
+✅ Team Deathmatch with score limits
+✅ Capture the Flag with full mechanics
+✅ Base game mode system for easy expansion
+
+### Phase 9 - Minimap (Implemented)
+✅ Real-time minimap with player tracking
+✅ Enemy/friendly markers
+✅ Team-based coloring
+✅ Zoom functionality
+
+### Phase 10 - Advanced Signatures (Implemented)
+✅ Radar signature system with ECM/ECCM
+✅ Visual signature with cloaking support
+✅ Aura signature for energy detection
+✅ Multi-detection type framework
+
 ## Controls
 
 ### Movement
@@ -125,6 +162,7 @@ Access via Enter or / key:
 - `/heat [value]` - Set accumulated heat
 - `/sig [value]` - Set heat signature
 - `/cooldown [multiplier]` - Adjust cooling rate
+- `/spawnbot [count]` - Spawn AI bot(s) for testing
 - `/godmode` - Toggle invincibility (not implemented)
 - `/noclip` - Toggle collision (not implemented)
 
@@ -194,16 +232,26 @@ celestial_knights/
 
 ## Development Roadmap
 
-### Future Enhancements (Phase 4+)
-- [ ] Advanced signature types (radar, visual, aura)
-- [ ] ECM/ECCM systems
-- [ ] Cloaking mechanics
-- [ ] Additional weapons
+### Completed Features
+- [x] Advanced signature types (radar, visual, aura)
+- [x] ECM/ECCM systems framework
+- [x] Cloaking mechanics framework
+- [x] Game modes (Team Deathmatch, Capture the Flag)
+- [x] Sound effects framework
+- [x] Particle effects for all systems
+- [x] AI bot system
+- [x] Minimap navigation
+- [x] Visual combat feedback (hit markers, damage numbers, kill feed)
+
+### Future Enhancements
+- [ ] Actual audio files (currently placeholder system)
+- [ ] Additional weapons and equipment
 - [ ] More loadout customization
-- [ ] Game modes (Capture the Flag, King of the Hill)
-- [ ] Proper 3D models and animations
-- [ ] Sound effects and music
-- [ ] Particle effects for all systems
+- [ ] King of the Hill game mode
+- [ ] Proper 3D models and animations to replace placeholders
+- [ ] Network interpolation for smoother multiplayer
+- [ ] More advanced bot AI behaviors
+- [ ] Map editor/custom maps
 
 ## Credits
 
@@ -219,7 +267,7 @@ This is a game development project. All configuration values are exposed for eas
 
 ---
 
-**Version**: 1.0 (Phase 1-3 Complete)
+**Version**: 2.0 (Phase 1-10 Complete)
 **Engine**: Godot 4.2+
 **Genre**: Multiplayer Third-Person Shooter
-**Status**: Playable MVP
+**Status**: Feature-Complete with AI, Game Modes, and Advanced Systems
