@@ -1,6 +1,10 @@
 extends CharacterBody3D
 class_name Player
 
+# Signals
+signal hit_confirmed()
+signal took_damage(amount: float)
+
 # Config reference
 var config: GameConfigResource
 
@@ -379,6 +383,13 @@ func fire_weapon():
 	var shots_per_second = config.fire_rate / 60.0
 	fire_cooldown = 1.0 / shots_per_second
 
+	# Spawn muzzle flash
+	var muzzle_flash_scene = preload("res://scenes/muzzle_flash.tscn")
+	var muzzle_flash = muzzle_flash_scene.instantiate()
+	muzzle_flash.global_position = global_position + Vector3(0, 1.5, 0) + aim_direction * 0.5
+	muzzle_flash.look_at(muzzle_flash.global_position + aim_direction, Vector3.UP)
+	get_parent().add_child(muzzle_flash)
+
 	# Calculate shot direction with spread
 	var spread_angle = deg_to_rad(current_spread)
 	var random_spread = Vector3(
@@ -399,18 +410,29 @@ func fire_weapon():
 	query.exclude = [self]
 	var result = space_state.intersect_ray(query)
 
-	if result and result.collider is Player:
-		# Calculate damage with falloff
-		var distance = global_position.distance_to(result.position)
-		var damage = config.damage_per_shot
+	if result:
+		# Spawn impact effect
+		var impact_scene = preload("res://scenes/impact_effect.tscn")
+		var impact = impact_scene.instantiate()
+		impact.global_position = result.position
+		get_parent().add_child(impact)
+		impact.set_impact_normal(result.normal)
 
-		if distance > config.damage_falloff_start:
-			var falloff_range = config.damage_falloff_end - config.damage_falloff_start
-			var falloff_amount = (distance - config.damage_falloff_start) / falloff_range
-			falloff_amount = clamp(falloff_amount, 0, 1)
-			damage *= lerp(1.0, 0.5, falloff_amount)
+		if result.collider is Player:
+			# Calculate damage with falloff
+			var distance = global_position.distance_to(result.position)
+			var damage = config.damage_per_shot
 
-		result.collider.take_damage(damage)
+			if distance > config.damage_falloff_start:
+				var falloff_range = config.damage_falloff_end - config.damage_falloff_start
+				var falloff_amount = (distance - config.damage_falloff_start) / falloff_range
+				falloff_amount = clamp(falloff_amount, 0, 1)
+				damage *= lerp(1.0, 0.5, falloff_amount)
+
+			result.collider.take_damage(damage)
+
+			# Emit hit confirmation for hit marker
+			hit_confirmed.emit()
 
 	# Apply recoil and spread
 	current_recoil += config.recoil_per_shot
@@ -543,6 +565,16 @@ func update_camera(delta):
 
 func take_damage(amount: float, bypass_shields: bool = false):
 	time_since_last_damage = 0.0
+
+	# Spawn damage number
+	var damage_number_scene = preload("res://scenes/damage_number.tscn")
+	var damage_number = damage_number_scene.instantiate()
+	damage_number.global_position = global_position + Vector3(0, 2.0, 0)
+	get_parent().add_child(damage_number)
+	damage_number.set_damage(amount)
+
+	# Emit signal
+	took_damage.emit(amount)
 
 	if not bypass_shields and shield_current > 0:
 		# Damage shields first

@@ -14,6 +14,7 @@ var local_player: Player = null
 var local_hud: CanvasLayer = null
 var scoreboard: CanvasLayer = null
 var chat_console: CanvasLayer = null
+var kill_feed: CanvasLayer = null
 
 func _ready():
 	# Set up default spawn points if none defined
@@ -42,6 +43,10 @@ func _ready():
 	chat_console = chat_scene.instantiate()
 	add_child(chat_console)
 	chat_console.set_game_manager(self)
+
+	var kill_feed_scene = preload("res://scenes/kill_feed.tscn")
+	kill_feed = kill_feed_scene.instantiate()
+	add_child(kill_feed)
 
 	# For single player testing, spawn a local player
 	if not multiplayer.has_multiplayer_peer():

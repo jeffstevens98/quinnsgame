@@ -148,7 +148,12 @@ func explode():
 				var damage = calculate_damage(distance)
 				body.take_damage(damage)
 
-	# Create explosion effect (will add particles later)
+	# Create explosion visual effect
+	var explosion_scene = preload("res://scenes/explosion.tscn")
+	var explosion = explosion_scene.instantiate()
+	explosion.global_position = global_position
+	get_parent().add_child(explosion)
+
 	print("Missile exploded at ", global_position)
 
 	queue_free()

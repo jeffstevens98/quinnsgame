@@ -39,6 +39,10 @@ func _ready():
 func set_player(p: Player):
 	player = p
 
+	# Connect to player signals
+	if player:
+		player.hit_confirmed.connect(_on_hit_confirmed)
+
 func _process(_delta):
 	if not player:
 		return
@@ -123,3 +127,12 @@ func update_hud():
 			lock_indicator.visible = true
 		else:
 			lock_indicator.visible = false
+
+func _on_hit_confirmed():
+	# Show hit marker
+	var hit_marker_scene = preload("res://scenes/hit_marker.tscn")
+	var hit_marker = hit_marker_scene.instantiate()
+	add_child(hit_marker)
+
+	# Position at screen center
+	hit_marker.position = get_viewport().get_visible_rect().size / 2.0
