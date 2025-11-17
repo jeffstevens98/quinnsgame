@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SignatureFormulas" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/signature_formulas.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+base_heat_signature = 1.0
+jetpack_heat_multiplier = 1.2
+jetpack_heat_constant = 5.7
+weapon_fire_heat = 0.5

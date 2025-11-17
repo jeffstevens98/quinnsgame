@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="LoadoutConfig" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/loadout_config.gd" id="1"]
+[ext_resource type="Resource" path="res://resources/configs/default_config.tres" id="2"]
+
+[resource]
+script = ExtResource("1")
+loadout_name = "Standard Knight"
+armor_config = ExtResource("2")
+shield_modifier = 1.0
+health_modifier = 1.0
+speed_modifier = 1.0
+heat_signature_modifier = 1.0
+jetpack_fuel_modifier = 1.0
+weapon_damage_modifier = 1.0
