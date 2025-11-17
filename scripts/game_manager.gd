@@ -7,7 +7,9 @@ extends Node3D
 # Player management
 var players: Dictionary = {}  # peer_id -> Player
 var player_scene = preload("res://scenes/player.tscn")
+var bot_scene = preload("res://scenes/bot_player.tscn")
 var hud_scene = preload("res://scenes/hud.tscn")
+var bots: Array[Player] = []
 
 # Local player reference
 var local_player: Player = null
@@ -57,6 +59,7 @@ func spawn_local_player():
 	player.player_id = 1
 	player.player_name = "Player1"
 	player.team_id = 1
+	player.add_to_group("players")
 	add_child(player)
 
 	# Position at team spawn
@@ -140,5 +143,33 @@ func process_chat_command(command: String):
 		"/noclip":
 			print("Noclip toggled (not implemented yet)")
 
+		"/spawnbot":
+			if parts.size() > 1:
+				var count = parts[1].to_int()
+				for i in range(count):
+					spawn_bot()
+			else:
+				spawn_bot()
+			print("Spawned bot(s)")
+
 		_:
 			print("Unknown command: ", cmd)
+
+func spawn_bot():
+	var bot = bot_scene.instantiate()
+	bot.player_id = 1000 + bots.size()
+	bot.player_name = "Bot" + str(bots.size() + 1)
+	bot.team_id = 2  # Opposite team
+	bot.add_to_group("players")
+
+	# Set skill level
+	bot.set_skill_level(randf_range(0.3, 0.7))
+
+	add_child(bot)
+
+	# Position at enemy spawn
+	var spawn_pos = get_spawn_position(2)
+	bot.global_position = spawn_pos
+
+	bots.append(bot)
+	print("Spawned ", bot.player_name, " on team ", bot.team_id)

@@ -383,6 +383,9 @@ func fire_weapon():
 	var shots_per_second = config.fire_rate / 60.0
 	fire_cooldown = 1.0 / shots_per_second
 
+	# Play weapon fire sound
+	SoundManager.play_weapon_fire("AR-45", global_position)
+
 	# Spawn muzzle flash
 	var muzzle_flash_scene = preload("res://scenes/muzzle_flash.tscn")
 	var muzzle_flash = muzzle_flash_scene.instantiate()
@@ -445,6 +448,7 @@ func start_reload():
 	if not is_reloading:
 		is_reloading = true
 		reload_timer = config.reload_time
+		SoundManager.play_weapon_reload(global_position)
 
 func perform_melee_stab():
 	melee_stab_cooldown_timer = config.melee_stab_cooldown

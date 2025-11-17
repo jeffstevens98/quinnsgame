@@ -21,6 +21,9 @@ func _ready():
 	fuel_remaining = config.missile_fuel
 	lifetime = 0.0
 
+	# Play launch sound
+	SoundManager.play_missile_launch(global_position)
+
 	# Set up physics
 	gravity_scale = 0.5  # Slight gravity effect
 	linear_damp = 0.1
@@ -153,6 +156,9 @@ func explode():
 	var explosion = explosion_scene.instantiate()
 	explosion.global_position = global_position
 	get_parent().add_child(explosion)
+
+	# Play explosion sound
+	SoundManager.play_explosion(global_position)
 
 	print("Missile exploded at ", global_position)
 
